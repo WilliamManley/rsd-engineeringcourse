@@ -9,6 +9,10 @@ This is a intensive, practical course.
 
 ## Synopsis
 
+### Pre-study Material.
+
+Installing Python, Conda, Jupyter, and git.
+
 ### Lesson 1
 
 * Why use scripting languages? 
