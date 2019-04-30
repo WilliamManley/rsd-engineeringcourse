@@ -22,10 +22,10 @@ In this course, you will move beyond programming, to learn how to construct reli
 1. Lab: Adopting best practice.
 1. Refactoring. IDEs. Configuration files. Using libraries.
 1. Lab: Refactoring and libraries.
-1. Object oriented design. Pragmatic use of diagram languages. Design Patterns.
-1. Design and development. Software as engineering. Functional and architectural design.
-1. Lab: Design and Development.
 1. Requirements engineering. Engineering methodologies: Agile and Waterfall.
+1. Design and development. Software as engineering. Functional and architectural design.
+1. Object oriented design. Pragmatic use of diagram languages. Design Patterns.
+1. Lab: Design and Development, OOD.
 1. Building and deployment. Packaging for pip and conda. Deploying.
 1. Lab: Building and deployment.
 1. Open Source community and interaction. Next steps.
