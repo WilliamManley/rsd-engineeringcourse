@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Version Control with git</title>
+<meta name="author" content="(Graham Lee)"/>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="http://cdn.jsdelivr.net/reveal.js/3.0.0/css/reveal.css"/>
+
+<link rel="stylesheet" href="http://cdn.jsdelivr.net/reveal.js/3.0.0/css/theme/serif.css" id="theme"/>
+
+
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'http://cdn.jsdelivr.net/reveal.js/3.0.0/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section id="sec-title-slide"><h1 class="title">Version Control with git</h1><h2 class="author">Graham Lee</h2>
+</section>
+
+<section>
+<section id="slide-sec-">
+<h2 id="org8f77140">Version control</h2>
+<p>
+What are we trying to achieve?
+</p>
+
+</section>
+<section id="slide-sec-">
+<h3 id="org1796f2a">For one person</h3>
+<ul>
+<li>An unlimited undo stack</li>
+<li>With annotated history</li>
+<li>And timestamps</li>
+
+</ul>
+
+</section>
+<section id="slide-sec-">
+<h3 id="orgb04f5d7">How do I do that?</h3>
+<ul>
+<li>edit</li>
+<li>commit</li>
+<li>edit</li>
+<li>commit</li>
+<li>edit</li>
+<li>whoops! revert</li>
+
+</ul>
+
+</section>
+<section id="slide-sec-">
+<h3 id="org78556e4">For two or more people</h3>
+<ul>
+<li>A shared undo stack</li>
+<li>Common history</li>
+<li>Apply my changes to team's work</li>
+
+</ul>
+
+</section>
+<section id="slide-sec-">
+<h3 id="orgd3c1b56">How do we do that?</h3>
+<p>
+Player 1:
+</p>
+
+<ul>
+<li>edit</li>
+<li>commit</li>
+<li>update</li>
+
+</ul>
+
+<p>
+Player 2:
+</p>
+
+<ul>
+<li>checkout</li>
+<li>edit</li>
+<li>commit</li>
+<li>update</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-sec-">
+<h2 id="orga3c6c1f">Git</h2>
+<div class="outline-text-2" id="text-orga3c6c1f">
+</div>
+</section>
+<section id="slide-sec-">
+<h3 id="orgd980220">Git version control</h3>
+<p>
+Git is a particular version control system. There are others.
+</p>
+
+<p>
+Popularised around 2008-2011, after the introduction of GitHub.
+</p>
+
+<p>
+GitHub is not git, it is a social network based on git interactions.
+</p>
+
+</section>
+<section id="slide-sec-">
+<h3 id="org36aa2d5">Workflow</h3>
+<p>
+Git knows about three places where changes exist.
+</p>
+
+<ul>
+<li><i>Local files</i> - what you have on your disk.</li>
+<li><i>Staging area</i> - things you've told git about but not committed.</li>
+<li><i>Repository</i> - a graph of committed changes and their relationships.</li>
+
+</ul>
+
+</section>
+<section id="slide-sec-">
+<h4 id="orga02f365"></h4>
+
+<div class="figure">
+<p><img src="./images/staging.png" alt="staging.png" />
+</p>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-sec-">
+<h2 id="orga8657d7">Getting started</h2>
+<div class="outline-text-2" id="text-orga8657d7">
+</div>
+</section>
+<section id="slide-sec-">
+<h3 id="orga85d4cb">Walkthrough</h3>
+<p>
+Hopefully, you've installed git.
+</p>
+
+<aside class="notes">
+<p>
+If you're on Windows, you'll find a git-bash program in your Start
+menu. Use that.
+</p>
+
+</aside>
+
+</section>
+<section id="slide-sec-">
+<h4 id="orgd5651ba">Configure git</h4>
+<pre class="example">
+$ git config --global user.name "Graham Lee"
+$ git config --global user.email "graham.lee@cs.ox.ac.uk"
+</pre>
+
+</section>
+<section id="slide-sec-">
+<h4 id="org42509e9">Make a repository</h4>
+<pre class="example">
+$ mkdir learning_git
+$ cd learning_git
+$ git init .
+Initialised empty Git repository in /tmp/learning_git/.git/
+
+</pre>
+
+<aside class="notes">
+<p>
+You may want to do this somewhere specific, like Documents.
+</p>
+
+</aside>
+
+</section>
+<section id="slide-sec-">
+<h4 id="org83c85b4">Check that it worked</h4>
+<pre class="example">
+$ git status
+On branch master
+
+No commits yet
+
+nothing to commit (create/copy files and use "git add" to track)
+</pre>
+</section>
+</section>
+</div>
+</div>
+<script src="http://cdn.jsdelivr.net/reveal.js/3.0.0/lib/js/head.min.js"></script>
+<script src="http://cdn.jsdelivr.net/reveal.js/3.0.0/js/reveal.js"></script>
+
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: false,
+center: true,
+slideNumber: 'c',
+rollingLinks: false,
+keyboard: true,
+overview: true,
+
+theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+transitionSpeed: 'default',
+multiplex: {
+    secret: '', // null if client
+    id: '', // id, obtained from socket.io server
+    url: '' // Location of socket.io server
+},
+
+// Optional libraries used to extend on reveal.js
+dependencies: [
+ { src: 'http://cdn.jsdelivr.net/reveal.js/3.0.0/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }]
+});
+</script>
+</body>
+</html>

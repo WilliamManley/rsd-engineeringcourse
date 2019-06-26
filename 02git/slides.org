@@ -1,0 +1,111 @@
+#+OPTIONS: num:nil toc:nil timestamp:nil
+#+REVEAL_PLUGINS: (notes)
+#+REVEAL_ROOT: http://cdn.jsdelivr.net/reveal.js/3.0.0/
+#+REVEAL_THEME: serif
+#+Title: Version Control with git
+#+Author: Graham Lee
+#+Email: graham.lee@cs.ox.ac.uk
+
+* Version control
+
+What are we trying to achieve?
+
+** For one person
+
+ - An unlimited undo stack
+ - With annotated history
+ - And timestamps
+
+** How do I do that?
+
+ - edit
+ - commit
+ - edit
+ - commit
+ - edit
+ - whoops! revert
+
+** For two or more people
+
+ - A shared undo stack
+ - Common history
+ - Apply my changes to team's work
+
+** How do we do that?
+
+Player 1:
+
+ - edit
+ - commit
+ - update
+
+Player 2:
+
+ - checkout
+ - edit
+ - commit
+ - update
+
+* Git
+
+** Git version control
+
+Git is a particular version control system. There are others.
+
+Popularised around 2008-2011, after the introduction of GitHub.
+
+GitHub is not git, it is a social network based on git interactions.
+
+** Workflow
+
+Git knows about three places where changes exist.
+
+ - /Local files/ - what you have on your disk.
+ - /Staging area/ - things you've told git about but not committed.
+ - /Repository/ - a graph of committed changes and their relationships.
+
+*** 
+
+[[./images/staging.png]]
+
+* Getting started
+
+** Walkthrough
+Hopefully, you've installed git.
+
+#+BEGIN_NOTES
+If you're on Windows, you'll find a git-bash program in your Start
+menu. Use that.
+#+END_NOTES
+
+*** Configure git
+
+#+BEGIN_EXAMPLE
+$ git config --global user.name "Graham Lee"
+$ git config --global user.email "graham.lee@cs.ox.ac.uk"
+#+END_EXAMPLE
+
+*** Make a repository
+
+#+BEGIN_EXAMPLE
+$ mkdir learning_git
+$ cd learning_git
+$ git init .
+Initialised empty Git repository in /tmp/learning_git/.git/
+
+#+END_EXAMPLE
+
+#+BEGIN_NOTES
+You may want to do this somewhere specific, like Documents.
+#+END_NOTES
+
+*** Check that it worked
+
+#+BEGIN_EXAMPLE
+$ git status
+On branch master
+
+No commits yet
+
+nothing to commit (create/copy files and use "git add" to track)
+#+END_EXAMPLE
