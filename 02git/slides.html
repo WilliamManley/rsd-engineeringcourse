@@ -31,14 +31,14 @@
 
 <section>
 <section id="slide-sec-">
-<h2 id="org8f77140">Version control</h2>
+<h2 id="org86d04c8">Version control</h2>
 <p>
 What are we trying to achieve?
 </p>
 
 </section>
 <section id="slide-sec-">
-<h3 id="org1796f2a">For one person</h3>
+<h3 id="orgbeb8cc0">For one person</h3>
 <ul>
 <li>An unlimited undo stack</li>
 <li>With annotated history</li>
@@ -48,7 +48,7 @@ What are we trying to achieve?
 
 </section>
 <section id="slide-sec-">
-<h3 id="orgb04f5d7">How do I do that?</h3>
+<h3 id="org26c0faa">How do I do that?</h3>
 <ul>
 <li>edit</li>
 <li>commit</li>
@@ -61,7 +61,7 @@ What are we trying to achieve?
 
 </section>
 <section id="slide-sec-">
-<h3 id="org78556e4">For two or more people</h3>
+<h3 id="org60535b6">For two or more people</h3>
 <ul>
 <li>A shared undo stack</li>
 <li>Common history</li>
@@ -71,7 +71,7 @@ What are we trying to achieve?
 
 </section>
 <section id="slide-sec-">
-<h3 id="orgd3c1b56">How do we do that?</h3>
+<h3 id="org3f05886">How do we do that?</h3>
 <p>
 Player 1:
 </p>
@@ -99,12 +99,12 @@ Player 2:
 </section>
 <section>
 <section id="slide-sec-">
-<h2 id="orga3c6c1f">Git</h2>
-<div class="outline-text-2" id="text-orga3c6c1f">
+<h2 id="orgaf3b2ee">Git</h2>
+<div class="outline-text-2" id="text-orgaf3b2ee">
 </div>
 </section>
 <section id="slide-sec-">
-<h3 id="orgd980220">Git version control</h3>
+<h3 id="org8a2efca">Git version control</h3>
 <p>
 Git is a particular version control system. There are others.
 </p>
@@ -119,7 +119,7 @@ GitHub is not git, it is a social network based on git interactions.
 
 </section>
 <section id="slide-sec-">
-<h3 id="org36aa2d5">Workflow</h3>
+<h3 id="org2fde9b6">Workflow</h3>
 <p>
 Git knows about three places where changes exist.
 </p>
@@ -131,9 +131,23 @@ Git knows about three places where changes exist.
 
 </ul>
 
+<aside class="notes">
+<p>
+
+</p>
+
+<p>
+The staging area acts as a place to assemble your thoughts, and gives
+you a chance to undo before you commit. The "commit" word is like
+"commitment": it's much harder to pretend you didn't do something if
+you're committed.
+</p>
+
+</aside>
+
 </section>
 <section id="slide-sec-">
-<h4 id="orga02f365"></h4>
+<h4 id="org8a5fec0"></h4>
 
 <div class="figure">
 <p><img src="./images/staging.png" alt="staging.png" />
@@ -144,12 +158,12 @@ Git knows about three places where changes exist.
 </section>
 <section>
 <section id="slide-sec-">
-<h2 id="orga8657d7">Getting started</h2>
-<div class="outline-text-2" id="text-orga8657d7">
+<h2 id="org9fe3592">Getting started</h2>
+<div class="outline-text-2" id="text-org9fe3592">
 </div>
 </section>
 <section id="slide-sec-">
-<h3 id="orga85d4cb">Walkthrough</h3>
+<h3 id="orgac7dcbe">Walkthrough</h3>
 <p>
 Hopefully, you've installed git.
 </p>
@@ -164,7 +178,7 @@ menu. Use that.
 
 </section>
 <section id="slide-sec-">
-<h4 id="orgd5651ba">Configure git</h4>
+<h4 id="orgdc4efbf">Configure git</h4>
 <pre class="example">
 $ git config --global user.name "Graham Lee"
 $ git config --global user.email "graham.lee@cs.ox.ac.uk"
@@ -172,7 +186,7 @@ $ git config --global user.email "graham.lee@cs.ox.ac.uk"
 
 </section>
 <section id="slide-sec-">
-<h4 id="org42509e9">Make a repository</h4>
+<h4 id="orgb607e6f">Make a repository</h4>
 <pre class="example">
 $ mkdir learning_git
 $ cd learning_git
@@ -190,7 +204,7 @@ You may want to do this somewhere specific, like Documents.
 
 </section>
 <section id="slide-sec-">
-<h4 id="org83c85b4">Check that it worked</h4>
+<h4 id="org686e735">Check that it worked</h4>
 <pre class="example">
 $ git status
 On branch master
@@ -198,6 +212,293 @@ On branch master
 No commits yet
 
 nothing to commit (create/copy files and use "git add" to track)
+</pre>
+
+</section>
+<section id="slide-sec-">
+<h3 id="org5fd309c">A first file</h3>
+<div class="outline-text-3" id="text-org5fd309c">
+</div>
+</section>
+<section id="slide-sec-">
+<h4 id="org97f936d">Create the file</h4>
+<pre class="example">
+$ nano index.md
+
+Mountains in the UK   
+===================   
+England is not very mountainous.   
+But has some tall hills, and maybe a mountain or two.
+</pre>
+
+</section>
+<section id="slide-sec-">
+<h4 id="org19c502d">It's not in git!</h4>
+<pre class="example">
+$ git status
+On branch master
+
+No commits yet
+
+Untracked files:
+  (use "git add &lt;file&gt;..." to include in what will be committed)
+
+	index.md
+
+nothing added to commit but untracked files present (use "git add" to track)
+</pre>
+
+</section>
+<section id="slide-sec-">
+<h4 id="orge8ac2af">Git told us twice to use "git add"</h4>
+<p>
+So let's do that. This <i>stages</i> the file.
+</p>
+
+<pre class="example">
+$ git add index.md
+</pre>
+
+</section>
+<section id="slide-sec-">
+<h4 id="orgeeb8179">And now commit the staged changes</h4>
+<pre class="example">
+$ git commit -m "First commit of discourse on UK topography"
+[master (root-commit) 20ad49c] First commit of discourse on UK topography
+ 1 file changed, 4 insertions(+)
+ create mode 100644 index.md
+</pre>
+
+</section>
+<section id="slide-sec-">
+<h4 id="org2501f20">Confirm that the change is there&#x2026;</h4>
+<pre class="example">
+$ git log
+commit 20ad49cfd1a8a359d30f433dd7263fb25c43c400 (HEAD -&gt; master)
+Author: Graham Lee &lt;graham.lee@cs.ox.ac.uk&gt;
+Date:   Thu Jun 27 09:28:58 2019 +0100
+
+    First commit of discourse on UK topography
+</pre>
+
+<aside class="notes">
+<p>
+The long 20ad&#x2026; number is a commit hash, which uniquely
+identifies this change. When git needs you to refer to a commit, you can use this hash. But you don't need to type the whole thing, just enough to be uniquely identifiable.
+</p>
+
+</aside>
+
+</section>
+<section id="slide-sec-">
+<h4 id="org83f8c7f">&#x2026;and there are no more outstanding changes</h4>
+<pre class="example">
+$ git status
+On branch master
+nothing to commit, working tree clean
+</pre>
+
+</section>
+<section id="slide-sec-">
+<h4 id="org7c4d7d0">Make another change</h4>
+<pre class="example">
+$ nano index.md
+
+Mountains in the UK
+===================
+England is not very mountainous.
+But has some tall hills, and maybe a mountain or two.
+
+Mount Fictional, in Barsetshire, U.K., is the tallest
+mountain in the world.
+</pre>
+
+</section>
+<section id="slide-sec-">
+<h4 id="orgfdecb35">git can see the change&#x2026;</h4>
+<pre class="example">
+$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add &lt;file&gt;..." to update what will be committed)
+  (use "git checkout -- &lt;file&gt;..." to discard changes in working directory)
+
+	modified:   index.md
+
+no changes added to commit (use "git add" and/or "git commit -a")
+</pre>
+
+<aside class="notes">
+<p>
+Git wouldn't commit our change yet, because we haven't staged it.
+</p>
+
+</aside>
+
+</section>
+<section id="slide-sec-">
+<h4 id="org5378bde">&#x2026;and can show us the differences</h4>
+<pre class="example">
+$ git diff
+diff --git a/index.md b/index.md
+index 9f69649..699e698 100644
+--- a/index.md
++++ b/index.md
+@@ -2,3 +2,7 @@ Mountains in the UK
+ ===================   
+ England is not very mountainous.   
+ But has some tall hills, and maybe a mountain or two.
++
++Mount Fictional, in Barsetshire, U.K., is the tallest
++mountain in the world.
++
+</pre>
+
+</section>
+<section id="slide-sec-">
+<h4 id="org162591a">Add all updated files, and commit</h4>
+<pre class="example">
+$ git add --update
+
+$ git commit -m "Add a lie about a mountain."
+[master d250add] Add a lie about a mountain.
+ 1 file changed, 4 insertions(+)
+
+$ git log --oneline
+d250add (HEAD -&gt; master) Add a lie about a mountain.
+20ad49c First commit of discourse on UK topography
+</pre>
+
+</section>
+<section id="slide-sec-">
+<h4 id="org308928b">Another edit</h4>
+<p>
+We'll come back to that mistake later, but for now carry on regardless.
+</p>
+
+<pre class="example">
+$ nano index.md
+
+$ git diff
+diff --git a/index.md b/index.md
+index 699e698..6bc639e 100644
+--- a/index.md
++++ b/index.md
+@@ -1,4 +1,4 @@
+-Mountains in the UK   
++Mountains and Hills in the UK   
+ ===================   
+ England is not very mountainous.   
+ But has some tall hills, and maybe a mountain or two.
+</pre>
+
+</section>
+<section id="slide-sec-">
+<h4 id="org61c7303">Another edit</h4>
+<pre class="example">
+$ git commit -am "Change title"
+[master 43db675] Change title
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+</pre>
+
+<p>
+The -a option to git commit is the same as doing "git add &#x2013;update"
+followed by "git commit".
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-sec-">
+<h2 id="orgc1d38f9">Correcting mistakes</h2>
+<div class="outline-text-2" id="text-orgc1d38f9">
+</div>
+</section>
+<section id="slide-sec-">
+<h3 id="orgaed0477">Review history</h3>
+<pre class="example">
+$ git log --online
+43db675 (HEAD -&gt; master) Change title
+d250add Add a lie about a mountain.
+20ad49c First commit of discourse on UK topography
+</pre>
+
+<p>
+That second commit, the one before HEAD, was a mistake. What can we do
+about it?
+</p>
+
+</section>
+<section id="slide-sec-">
+<h3 id="org8511134">Reverting the commit</h3>
+<pre class="example">
+$ git revert HEAD^
+[master 4a08366] Revert "Add a lie about a mountain."
+ 1 file changed, 4 deletions(-)
+
+$ git log
+4a08366 (HEAD -&gt; master) Revert "Add a lie about a mountain."
+43db675 Change title
+d250add Add a lie about a mountain.
+20ad49c First commit of discourse on UK topography
+</pre>
+
+</section>
+<section id="slide-sec-">
+<h3 id="org173ef49">Rewriting history</h3>
+<p>
+The revert added a new commit, "undoing" our mistake. So both the
+original commit and the undo appear in the history. Can we remove the
+mistake entirely, pretending we never made it?
+</p>
+
+</section>
+<section id="slide-sec-">
+<h4 id="orgffebb7e">Rewriting history</h4>
+<pre class="example">
+$ nano index.md
+
+$ git diff
+index 16e9f68..fe8cbca 100644
+--- a/index.md
++++ b/index.md
+@@ -1,4 +1,4 @@
+ Mountains and Hills in the UK   
+ ===================   
+-England is not very mountainous.   
++Engerland is not very mountainous.   
+ But has some tall hills, and maybe a mountain or two.
+</pre>
+
+</section>
+<section id="slide-sec-">
+<h4 id="org2b16a48">Rewriting history</h4>
+<pre class="example">
+$ git commit -am "Change spelling"
+[master 92754c8] Change spelling
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+$ git log --oneline
+97254c8 (HEAD -&gt; master) Change spelling
+4a08366 Revert "Add a lie about a mountain."
+43db675 Change title
+d250add Add a lie about a mountain.
+20ad49c First commit of discourse on UK topography
+</pre>
+
+</section>
+<section id="slide-sec-">
+<h4 id="org603642c">Rewriting history</h4>
+<pre class="example">
+$ git reset HEAD^
+Unstaged changes after reset:
+M	index.md
+
+$ git log --online
+4a08366 (HEAD -&gt; master) Revert "Add a lie about a mountain."
+43db675 Change title
+d250add Add a lie about a mountain.
+20ad49c First commit of discourse on UK topography
 </pre>
 </section>
 </section>

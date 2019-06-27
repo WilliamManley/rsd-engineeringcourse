@@ -64,6 +64,15 @@ Git knows about three places where changes exist.
  - /Staging area/ - things you've told git about but not committed.
  - /Repository/ - a graph of committed changes and their relationships.
 
+#+BEGIN_NOTES
+
+The staging area acts as a place to assemble your thoughts, and gives
+you a chance to undo before you commit. The "commit" word is like
+"commitment": it's much harder to pretend you didn't do something if
+you're committed.
+
+#+END_NOTES
+
 *** 
 
 [[./images/staging.png]]
@@ -109,3 +118,268 @@ No commits yet
 
 nothing to commit (create/copy files and use "git add" to track)
 #+END_EXAMPLE
+
+** A first file
+
+*** Create the file
+
+#+BEGIN_EXAMPLE
+$ nano index.md
+
+Mountains in the UK   
+===================   
+England is not very mountainous.   
+But has some tall hills, and maybe a mountain or two.
+#+END_EXAMPLE
+
+*** It's not in git!
+
+#+BEGIN_EXAMPLE
+$ git status
+On branch master
+
+No commits yet
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+	index.md
+
+nothing added to commit but untracked files present (use "git add" to track)
+#+END_EXAMPLE
+
+*** Git told us twice to use "git add"
+
+So let's do that. This /stages/ the file.
+
+#+BEGIN_EXAMPLE
+$ git add index.md
+#+END_EXAMPLE
+
+*** And now commit the staged changes
+
+#+BEGIN_EXAMPLE
+$ git commit -m "First commit of discourse on UK topography"
+[master (root-commit) 20ad49c] First commit of discourse on UK topography
+ 1 file changed, 4 insertions(+)
+ create mode 100644 index.md
+#+END_EXAMPLE
+
+*** Confirm that the change is there...
+
+#+BEGIN_EXAMPLE
+$ git log
+commit 20ad49cfd1a8a359d30f433dd7263fb25c43c400 (HEAD -> master)
+Author: Graham Lee <graham.lee@cs.ox.ac.uk>
+Date:   Thu Jun 27 09:28:58 2019 +0100
+
+    First commit of discourse on UK topography
+#+END_EXAMPLE
+
+#+BEGIN_NOTES
+The long 20ad... number is a commit hash, which uniquely
+identifies this change. When git needs you to refer to a commit, you can use this hash. But you don't need to type the whole thing, just enough to be uniquely identifiable.
+#+END_NOTES
+
+*** ...and there are no more outstanding changes
+
+#+BEGIN_EXAMPLE
+$ git status
+On branch master
+nothing to commit, working tree clean
+#+END_EXAMPLE
+
+*** Make another change
+
+#+BEGIN_EXAMPLE
+$ nano index.md
+
+Mountains in the UK
+===================
+England is not very mountainous.
+But has some tall hills, and maybe a mountain or two.
+
+Mount Fictional, in Barsetshire, U.K., is the tallest
+mountain in the world.
+#+END_EXAMPLE
+
+*** git can see the change...
+
+#+BEGIN_EXAMPLE
+$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+	modified:   index.md
+
+no changes added to commit (use "git add" and/or "git commit -a")
+#+END_EXAMPLE
+
+#+BEGIN_NOTES
+Git wouldn't commit our change yet, because we haven't staged it.
+#+END_NOTES
+
+*** ...and can show us the differences
+
+#+BEGIN_EXAMPLE
+$ git diff
+diff --git a/index.md b/index.md
+index 9f69649..699e698 100644
+--- a/index.md
++++ b/index.md
+@@ -2,3 +2,7 @@ Mountains in the UK
+ ===================   
+ England is not very mountainous.   
+ But has some tall hills, and maybe a mountain or two.
++
++Mount Fictional, in Barsetshire, U.K., is the tallest
++mountain in the world.
++
+#+END_EXAMPLE
+
+*** Add all updated files, and commit
+
+#+BEGIN_EXAMPLE
+$ git add --update
+
+$ git commit -m "Add a lie about a mountain."
+[master d250add] Add a lie about a mountain.
+ 1 file changed, 4 insertions(+)
+
+$ git log --oneline
+d250add (HEAD -> master) Add a lie about a mountain.
+20ad49c First commit of discourse on UK topography
+#+END_EXAMPLE
+
+*** Another edit
+
+We'll come back to that mistake later, but for now carry on regardless.
+
+#+BEGIN_EXAMPLE
+$ nano index.md
+
+$ git diff
+diff --git a/index.md b/index.md
+index 699e698..6bc639e 100644
+--- a/index.md
++++ b/index.md
+@@ -1,4 +1,4 @@
+-Mountains in the UK   
++Mountains and Hills in the UK   
+ ===================   
+ England is not very mountainous.   
+ But has some tall hills, and maybe a mountain or two.
+#+END_EXAMPLE
+
+*** Another edit
+
+#+BEGIN_EXAMPLE
+$ git commit -am "Change title"
+[master 43db675] Change title
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+#+END_EXAMPLE
+
+The -a option to git commit is the same as doing "git add --update"
+followed by "git commit".
+
+* Correcting mistakes
+
+** Review history
+
+#+BEGIN_EXAMPLE
+$ git log --online
+43db675 (HEAD -> master) Change title
+d250add Add a lie about a mountain.
+20ad49c First commit of discourse on UK topography
+#+END_EXAMPLE
+
+That second commit, the one before HEAD, was a mistake. What can we do
+about it?
+
+** Reverting the commit
+
+#+BEGIN_EXAMPLE
+$ git revert HEAD^
+[master 4a08366] Revert "Add a lie about a mountain."
+ 1 file changed, 4 deletions(-)
+
+$ git log
+4a08366 (HEAD -> master) Revert "Add a lie about a mountain."
+43db675 Change title
+d250add Add a lie about a mountain.
+20ad49c First commit of discourse on UK topography
+#+END_EXAMPLE
+
+** Rewriting history
+
+The revert added a new commit, "undoing" our mistake. So both the
+original commit and the undo appear in the history. Can we remove the
+mistake entirely, pretending we never made it?
+
+*** Rewriting history
+
+#+BEGIN_EXAMPLE
+$ nano index.md
+
+$ git diff
+index 16e9f68..fe8cbca 100644
+--- a/index.md
++++ b/index.md
+@@ -1,4 +1,4 @@
+ Mountains and Hills in the UK   
+ ===================   
+-England is not very mountainous.   
++Engerland is not very mountainous.   
+ But has some tall hills, and maybe a mountain or two.
+#+END_EXAMPLE
+
+*** Rewriting history
+
+#+BEGIN_EXAMPLE
+$ git commit -am "Change spelling"
+[master 92754c8] Change spelling
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+$ git log --oneline
+97254c8 (HEAD -> master) Change spelling
+4a08366 Revert "Add a lie about a mountain."
+43db675 Change title
+d250add Add a lie about a mountain.
+20ad49c First commit of discourse on UK topography
+#+END_EXAMPLE
+
+*** Rewriting history
+
+#+BEGIN_EXAMPLE
+$ git reset HEAD^
+Unstaged changes after reset:
+M	index.md
+
+$ git log --online
+4a08366 (HEAD -> master) Revert "Add a lie about a mountain."
+43db675 Change title
+d250add Add a lie about a mountain.
+20ad49c First commit of discourse on UK topography
+#+END_EXAMPLE
+
+* Publishing on Github
+
+** What is GitHub?
+
+- A cloud store for git repositories
+- A social network for programmers
+
+** Getting Started
+
+- Create an account (if you haven't already)
+- (Optionally, but recommended) set up an SSH key
+- Press "new repository" in github, set a name, description, make it public.
+
+** Add a Remote
+
+Your git repo needs to know about the one on github. Git calls other repositories "remotes".
+
+#+BEGIN_EXAMPLE
+$ git remote add origin git@github.com:iamleeg/github-example.git
