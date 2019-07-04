@@ -709,3 +709,8 @@ The owner of the original repo sees the pull request. They can review the code, 
 ** Conflicts
 
 Good practice to resolve conflicts in the pull request, to reduce the work the upstream owner must do.
+* This presentation
+
+...is on Github!
+
+https://github.com/OxfordRSE/rds-engineeringcourse
