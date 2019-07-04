@@ -1,0 +1,31 @@
+#+OPTIONS: num:nil toc:nil timestamp:nil
+#+REVEAL_PLUGINS: (notes)
+#+REVEAL_ROOT: http://cdn.jsdelivr.net/reveal.js/3.0.0/
+#+REVEAL_THEME: serif
+#+Title: Error Handling
+#+Author: Graham Lee
+#+Email: graham.lee@cs.ox.ac.uk
+
+* The Errorgraphie
+
+** Errors are hard.
+
+[[./images/bad_error.jpg]]
+
+** Something that could go wrong, did
+
+"Disappointment"
+
+** You got it wrong
+
+Precondition Failure.
+
+** I got it wrong
+
+Postcondition Failure.
+
+** The computer is broken
+
+Time to give up!
+
+[[./images/homer.gif]]

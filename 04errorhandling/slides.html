@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Error Handling</title>
+<meta name="author" content="(Graham Lee)"/>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="http://cdn.jsdelivr.net/reveal.js/3.0.0/css/reveal.css"/>
+
+<link rel="stylesheet" href="http://cdn.jsdelivr.net/reveal.js/3.0.0/css/theme/serif.css" id="theme"/>
+
+
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'http://cdn.jsdelivr.net/reveal.js/3.0.0/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section id="sec-title-slide"><h1 class="title">Error Handling</h1><h2 class="author">Graham Lee</h2>
+</section>
+
+<section>
+<section id="slide-sec-">
+<h2 id="org42a0ce2">The Errorgraphie</h2>
+<div class="outline-text-2" id="text-org42a0ce2">
+</div>
+</section>
+<section id="slide-sec-">
+<h3 id="org7b15bed">Errors are hard.</h3>
+
+<div class="figure">
+<p><img src="./images/bad_error.jpg" alt="bad_error.jpg" />
+</p>
+</div>
+
+</section>
+<section id="slide-sec-">
+<h3 id="org4b8fd09">Something that could go wrong, did</h3>
+<p>
+"Disappointment"
+</p>
+
+</section>
+<section id="slide-sec-">
+<h3 id="orgff55396">You got it wrong</h3>
+<p>
+Precondition Failure.
+</p>
+
+</section>
+<section id="slide-sec-">
+<h3 id="org97aa7ab">I got it wrong</h3>
+<p>
+Postcondition Failure.
+</p>
+
+</section>
+<section id="slide-sec-">
+<h3 id="org557e080">The computer is broken</h3>
+<p>
+Time to give up!
+</p>
+
+
+<div class="figure">
+<p><img src="./images/homer.gif" alt="homer.gif" />
+</p>
+</div>
+</section>
+</section>
+</div>
+</div>
+<script src="http://cdn.jsdelivr.net/reveal.js/3.0.0/lib/js/head.min.js"></script>
+<script src="http://cdn.jsdelivr.net/reveal.js/3.0.0/js/reveal.js"></script>
+
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: false,
+center: true,
+slideNumber: 'c',
+rollingLinks: false,
+keyboard: true,
+overview: true,
+
+theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+transitionSpeed: 'default',
+multiplex: {
+    secret: '', // null if client
+    id: '', // id, obtained from socket.io server
+    url: '' // Location of socket.io server
+},
+
+// Optional libraries used to extend on reveal.js
+dependencies: [
+ { src: 'http://cdn.jsdelivr.net/reveal.js/3.0.0/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }]
+});
+</script>
+</body>
+</html>
