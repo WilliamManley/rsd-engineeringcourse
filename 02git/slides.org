@@ -713,4 +713,4 @@ Good practice to resolve conflicts in the pull request, to reduce the work the u
 
 ...is on Github!
 
-https://github.com/OxfordRSE/rds-engineeringcourse
+https://github.com/OxfordRSE/rsd-engineeringcourse
