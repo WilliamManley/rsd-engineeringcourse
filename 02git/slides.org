@@ -289,7 +289,7 @@ followed by "git commit".
 ** Review history
 
 #+BEGIN_EXAMPLE
-$ git log --online
+$ git log --oneline
 43db675 (HEAD -> master) Change title
 d250add Add a lie about a mountain.
 20ad49c First commit of discourse on UK topography
@@ -357,7 +357,7 @@ $ git reset HEAD^
 Unstaged changes after reset:
 M	index.md
 
-$ git log --online
+$ git log --oneline
 4a08366 (HEAD -> master) Revert "Add a lie about a mountain."
 43db675 Change title
 d250add Add a lie about a mountain.
@@ -506,15 +506,18 @@ This automatically sets up a remote called "origin".
 *** Leader makes changes
 
 LEADER
+
 #+BEGIN_EXAMPLE
 $ nano Wales.md
 
 Mountains In Wales
 ==================
+- Tryfan
+- Yr Wyddfa
+#+END_EXAMPLE
 
-* Tryfan
-* Yr Wyddfa
-
+*** And commits
+#+BEGIN_EXAMPLE
 $ git add Wales.md
 $ git commit -m "Add Wales"
 
@@ -532,8 +535,8 @@ $ nano Scotland.md
 Mountains In Scotland
 ==================
 
-* Ben Eighe
-* Cairngorm
+- Ben Eighe
+- Cairngorm
 
 $ git add Scotland.md
 $ git commit -m "Add Scotland"
@@ -605,10 +608,10 @@ $ nano Wales.md
 Mountains In Wales
 ==================
 
-* Pen y Fan
-* Tryfan
-* Snowdon
-* Fan y Big
+- Pen y Fan
+- Tryfan
+- Snowdon
+- Fan y Big
 
 $ git commit -am "Add another Beacon"
 $ git push
@@ -627,10 +630,10 @@ $ nano Wales.md
 Mountains In Wales
 ==================
 
-* Pen y Fan
-* Tryfan
-* Snowdon
-* Glyder Fawr
+- Pen y Fan
+- Tryfan
+- Snowdon
+- Glyder Fawr
 
 $ git commit -m 'Add Glyder'
 $ git push
@@ -663,13 +666,13 @@ $ nano index.md
 Mountains In Wales
 ==================
 
-* Pen y Fan
-* Tryfan
-* Snowdon
+- Pen y Fan
+- Tryfan
+- Snowdon
 <<<<<<< HEAD
-* Glyder Fawr
+- Glyder Fawr
 =======
-* Fan y Big
+- Fan y Big
 >>>>>>> 3c4a02fdbaaa1e2a2af2bf62f9e08ac5ded2b374
 #+END_EXAMPLE
 
