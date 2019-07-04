@@ -383,3 +383,326 @@ Your git repo needs to know about the one on github. Git calls other repositorie
 
 #+BEGIN_EXAMPLE
 $ git remote add origin git@github.com:iamleeg/github-example.git
+#+END_EXAMPLE
+
+** Sharing with git
+
+/push/ and /pull/ work with commits, not local files or staged changes.
+
+[[./images/remotes.png]]
+
+** Your first push!
+
+Publish your work so far:
+
+#+BEGIN_EXAMPLE
+$ git push -u origin master
+Counting objects: 12, done.
+Delta compression using up to 12 threads.
+Compressing objects: 100% (8/8), done.
+Writing objects: 100% (12/12), 1.04 KiB | 356.00 KiB/s, done.
+Total 12 (delta 4), reused 0 (delta 0)
+remote: Resolving deltas: 100% (4/4), done.
+To github.com:iamleeg/github_example.git
+ * [new branch]      master -> master
+Branch 'master' set up to track remote branch 'master' from 'origin'.
+#+END_EXAMPLE
+
+** Add another file
+
+#+BEGIN_EXAMPLE
+$ nano lakeland.md
+
+Lakeland
+========
+
+Cumbria has some pretty hills, and lakes too.
+#+END_EXAMPLE
+
+*** Git studiously ignores it...
+
+#+BEGIN_EXAMPLE
+$ git status
+On branch master
+Your branch is up-to-date with 'origin/master'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+	lakeland.md
+
+nothing added to commit but untracked files present (use "git add" to track)
+#+END_EXAMPLE
+
+*** ...even if you try to commit...
+
+#+BEGIN_EXAMPLE
+$ git commit -am 'Add Lakeland'
+On branch master
+Your branch is up-to-date with 'origin/master'.
+
+Untracked files:
+	lakeland.md
+
+nothing added to commit but untracked files present
+#+END_EXAMPLE
+
+*** ...because you need to explicitly add new files.
+
+#+BEGIN_EXAMPLE
+$ git add lakeland.md
+$ git commit -am 'Add Lakeland'
+[master 7cdcdb1] Add Lakeland
+ 1 file changed, 5 insertions(+)
+ create mode 100644 lakeland.md
+#+END_EXAMPLE
+
+*** Push this change to Github
+
+#+BEGIN_NOTES
+Important to realise that git doesn't stay in sync.
+#+END_NOTES
+
+#+BEGIN_EXAMPLE
+$ git push
+Counting objects: 3, done.
+Delta compression using up to 12 threads.
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 338 bytes | 338.00 KiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0)
+To github.com:iamleeg/github_example.git
+   33941ba..7cdcdb1  master -> master
+#+END_EXAMPLE
+
+** More on multiple files
+
+- Stage/commit different files separately, or together
+- Or even different changes in the same file!
+
+* Collaborating with Github
+
+** You need a team
+
+Form pairs. If there are an odd number of you, form pairs and a trio.
+Designate one person as the "leader", the other(s) will collaborate.
+
+** Give permission
+
+The leader should go to their Github repo's settings, and add the
+collaborator(s) to their project.
+
+** Work on the same code
+
+The collaborator(s) now find the leader's Github repo and clone it:
+
+#+BEGIN_EXAMPLE
+$ git clone git@github.com:leader_name/github_example.git
+#+END_EXAMPLE
+
+This automatically sets up a remote called "origin".
+
+** Make changes together
+
+*** Leader makes changes
+
+LEADER
+#+BEGIN_EXAMPLE
+$ nano Wales.md
+
+Mountains In Wales
+==================
+
+* Tryfan
+* Yr Wyddfa
+
+$ git add Wales.md
+$ git commit -m "Add Wales"
+
+[master d7d7243] Add Wales
+ 1 file changed, 5 insertions(+)
+ create mode 100644 Wales.md
+#+END_EXAMPLE
+
+*** And the collaborator
+
+COLLABORATOR
+#+BEGIN_EXAMPLE
+$ nano Scotland.md
+
+Mountains In Scotland
+==================
+
+* Ben Eighe
+* Cairngorm
+
+$ git add Scotland.md
+$ git commit -m "Add Scotland"
+[master aed6a4d] Add Scotland
+ 1 file changed, 5 insertions(+)
+ create mode 100644 Scotland.md
+#+END_EXAMPLE
+
+*** One of you pushes...
+
+LEADER
+#+BEGIN_EXAMPLE
+$ git push
+To git@github.com:iamleeg/github_example.git
+   79b1285..aed6a4d  master -> master
+#+END_EXAMPLE
+
+*** ...the other is rejected :(
+
+COLLABORATOR
+#+BEGIN_EXAMPLE
+$ git push
+To git@github.com:iamleeg/github_example.git
+ ! [rejected]        master -> master (fetch first)
+error: failed to push some refs to 'git@github.com:iamleeg/github_example.git'
+hint: Updates were rejected because the remote contains work that you do
+hint: not have locally. This is usually caused by another repository pushing
+hint: to the same ref. You may want to first integrate the remote changes
+hint: (e.g., 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+#+END_EXAMPLE
+
+*** What happened?
+
+Git only lets you push when your repo is in sync with the remote (though you can "force push", on exception).
+
+*** Pull to sync with the remote
+
+COLLABORATOR
+#+BEGIN_EXAMPLE
+$ git pull
+Merge made by the 'recursive' strategy.
+ Scotland.md | 5 +++++
+ 1 file changed, 5 insertions(+)
+ create mode 100644 Scotland.md
+
+From github.com:iamleeg/github_example
+   79b1285..aed6a4d  master     -> origin/master
+#+END_EXAMPLE
+
+*** NOW you can push
+
+COLLABORATOR
+#+BEGIN_EXAMPLE
+$ git push
+To git@github.com:iamleeg/github_example.git
+   aed6a4d..4bc25e9  master -> master
+#+END_EXAMPLE
+
+And the leader has to pull, to get your changes.
+
+* Conflicts and Resolution
+
+** Change a file.
+
+LEADER
+#+BEGIN_EXAMPLE
+$ nano Wales.md
+Mountains In Wales
+==================
+
+* Pen y Fan
+* Tryfan
+* Snowdon
+* Fan y Big
+
+$ git commit -am "Add another Beacon"
+$ git push
+[master 3c4a02f] Add another Beacon
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+To git@github.com:iamleeg/github_example.git
+   54a5484..3c4a02f  master -> master
+#+END_EXAMPLE
+
+** Collaborator changes the same file
+
+COLLABORATOR
+#+BEGIN_EXAMPLE
+$ nano Wales.md
+Mountains In Wales
+==================
+
+* Pen y Fan
+* Tryfan
+* Snowdon
+* Glyder Fawr
+
+$ git commit -m 'Add Glyder'
+$ git push
+[master a5f66ac] Add Glyder
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+To git@github.com:iamleeg/github_example.git
+ ! [rejected]        master -> master (fetch first)
+...
+#+END_EXAMPLE
+
+** Collaborator pulls to merge upstream changes
+
+COLLABORATOR
+#+BEGIN_EXAMPLE
+$ git pull
+CONFLICT (content): Merge conflict in Wales.md
+Automatic merge failed; fix conflicts and then commit the result.
+
+From github.com:iamleeg/github_example
+   54a5484..3c4a02f  master     -> origin/master
+Recorded preimage for 'Wales.md'
+#+END_EXAMPLE
+
+** Git shows the problem
+
+COLLABORATOR
+#+BEGIN_EXAMPLE
+$ nano index.md
+Mountains In Wales
+==================
+
+* Pen y Fan
+* Tryfan
+* Snowdon
+<<<<<<< HEAD
+* Glyder Fawr
+=======
+* Fan y Big
+>>>>>>> 3c4a02fdbaaa1e2a2af2bf62f9e08ac5ded2b374
+#+END_EXAMPLE
+
+#+BEGIN_NOTES
+To fix the conflict, make the file make sense again, removing the conflict markers. What "makes sense" depends on your problem, but for source code, making it compile and work is a good baseline.
+#+END_NOTES
+
+** Add, commit, and push
+
+COLLABORATOR
+#+BEGIN_EXAMPLE
+$ git commit -am 'Fix merge conflict in Wales.md'
+[master 5f73fff] Fix merge conflict in Wales.md
+
+Recorded resolution for 'Wales.md'.
+#+END_EXAMPLE
+
+* Pull Requests
+
+** Forks
+
+That example used one repository, which works when the collaborators are on the same team. To contribute to another project, /fork/ it.
+
+** What is a fork?
+
+Your own copy of the original repo.
+
+** Pull request
+
+Make changes in your own fork. When you're ready, press the pull request button in Github.
+
+The owner of the original repo sees the pull request. They can review the code, suggest changes, accept or reject the pull request.
+
+** Conflicts
+
+Good practice to resolve conflicts in the pull request, to reduce the work the upstream owner must do.
